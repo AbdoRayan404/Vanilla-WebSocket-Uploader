@@ -43,3 +43,14 @@ server.on('request',(req,res)=>{
 })
 
 server.listen(process.env.PORT || 3000)
+
+/////////////////////////////////////
+// that's just to make github make //
+// the project JavaScript main     //
+// and not HTML... Github really   //
+// need help on this... it's so w- //
+// weird that i need to add more l-//
+// lines in order to make Github   //
+// mark it as JavaScript project   //
+// Sad... anyways i guess that's it//
+/////////////////////////////////////
