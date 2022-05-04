@@ -1,3 +1,46 @@
-<html>
-    <p>hello world</p>
-</html>
+<head>
+    <title>cool uploader</title>
+</head>
+<body>
+    <h1>BEST Vanilla uploader.</h1><br>
+
+    <input type = 'file', id='file'>
+    <button id = 'uploadbutton'>Upload</button>
+    <div id = 'WSstatus'>Waiting...</div>
+
+    <script>
+        const uploadButton = document.getElementById('uploadbutton')
+        const f = document.getElementById('file')
+        const status = document.getElementById('WSstatus')
+        
+        //localhost in my case
+        var socket = new WebSocket('ws://localhost:3000/upload')
+
+        socket.onopen = ()=>{
+            status.textContent = 'Connected'
+        }
+        socket.onerror = ()=>{
+            status.textContent = 'Error'
+        }
+        socket.onclose = ()=>{
+            status.textContent = 'Closed'
+        }
+
+        uploadButton.addEventListener('click', ()=>{
+            const fileReader = new FileReader();
+            const file = f.files[0]
+
+            fileReader.onload = async ev =>{
+                const CHUNK_COUNT = ev.target.result.byteLength / 1000;
+
+                for(let chunkId = 0; chunkId < CHUNK_COUNT + 1; chunkId++){
+                    const chunk = ev.target.result.slice(chunkId * 1000, chunkId * 1000 + 1000)
+
+                    await socket.send(chunk)
+                }
+            }
+            fileReader.readAsArrayBuffer(file)
+            
+        })
+    </script>
+</body>
