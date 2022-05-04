@@ -1,0 +1,19 @@
+{
+  "name": "vanilla-uploader-ws",
+  "version": "1.0.0",
+  "description": "A Vanilla nodeJS file uploader using WebSockets.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev":"nodemon server.js"
+  },
+  "keywords": [],
+  "author": "terry-404",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "ws": "^8.6.0"
+  }
+}
