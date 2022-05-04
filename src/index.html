@@ -33,6 +33,9 @@
             fileReader.onload = async ev =>{
                 const CHUNK_COUNT = ev.target.result.byteLength / 1000;
 
+                //sending file name.
+                socket.send(file.name)
+
                 for(let chunkId = 0; chunkId < CHUNK_COUNT + 1; chunkId++){
                     const chunk = ev.target.result.slice(chunkId * 1000, chunkId * 1000 + 1000)
 
