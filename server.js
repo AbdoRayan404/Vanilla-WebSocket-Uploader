@@ -6,7 +6,16 @@ const server = http.createServer()
 const wserver = new ws.Server({noServer:true})
 
 wserver.on('connection',(ws)=>{
-    ws.send("test.")
+    let fileName = ""
+    ws.on('message',(data, isbinary)=>{
+        if(isbinary == false){
+            fileName = data.toString()
+        }
+        //when binary (file data)
+        else{
+            fs.appendFileSync(fileName,data)
+        }
+    })
 })
 
 //in case of upgrade (from HTTP -> WebSocket), emit the connection to the WS server.
